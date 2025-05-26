@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Pribadi Saya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(45deg, #6b48ff, #00ddeb, #ff6b6b, #4bcffa);
+      background-size: 400% 400%;
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+      animation: gradientAnimation 15s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeInContent {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounceIcon {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    @keyframes pulseSkill {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.07);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes bubblePop {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
+      50% {
+        transform: scale(1.15);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 300px;
+      background-color: #2a2a2a;
+      color: white;
+      padding: 2rem;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .sidebar .profile-pic {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar .profile-pic img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+    }
+
+    .sidebar h1 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar .title {
+      font-size: 1rem;
+      color: #aaa;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar nav ul {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .sidebar nav ul li {
+      margin: 1rem 0;
+    }
+
+    .sidebar nav ul li a {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+
+    .sidebar nav ul li a.active {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .sidebar nav ul li a:hover {
+      color: #fff;
+    }
+
+    .sidebar .social-links {
+      text-align: center;
+    }
+
+    .sidebar .social-links a {
+      color: #ccc;
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .sidebar .social-links a:hover {
+      color: #fff;
+      animation: bounceIcon 0.6s ease;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 300px;
+      padding: 3rem;
+      width: calc(100% - 300px);
+      background-color: #fff;
+    }
+
+    .main-content .session {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .main-content .session.active {
+      display: block;
+      opacity: 1;
+      animation: fadeInContent 0.5s ease;
+    }
+
+    .main-content .session h2 {
+      font-size: 1.8rem;
+      color: #2a2a2a;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #2a2a2a;
+      padding-bottom: 0.5rem;
+    }
+
+    .main-content .session p {
+      font-size: 1rem;
+      color: #666;
+    }
+
+    .main-content .experience-item,
+    .main-content .education-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .main-content .experience-item h3,
+    .main-content .education-item h3 {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 0.3rem;
+    }
+
+    .main-content .experience-item .duration,
+    .main-content .education-item .duration {
+      font-size: 0.9rem;
+      color: #999;
+      margin-bottom: 0.5rem;
+    }
+
+    .main-content .skills ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .main-content .skills ul li {
+      background-color: #f4f4f9;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: #333;
+      transition: transform 0.3s ease;
+    }
+
+    .main-content .skills ul li:hover {
+      animation: pulseSkill 0.5s ease;
+    }
+
+    /* Family Gallery */
+    .family-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-item:active {
+      animation: bubblePop 0.4s ease;
+    }
+
+    .gallery-item .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover .caption {
+      opacity: 1;
+    }
+
+    /* Lightbox Styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-image {
+      max-width: 90%;
+      max-height: 70vh;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .lightbox-caption {
+      color: #fff;
+      font-size: 1.1rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-btn:hover {
+      color: #ccc;
+    }
+
+    /* Responsif */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 2rem;
+      }
+
+      .family-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+
+      .gallery-item img {
+        height: 150px;
+      }
+
+      .gallery-item .caption {
+        font-size: 0.8rem;
+        padding: 8px;
+      }
+
+      .lightbox-image {
+        max-width: 95%;
+        max-height: 60vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="profile-pic">
+      <img src="https://freeimage.host/i/3QZWS0N" alt="Foto Profil" />
+    </div>
+    <h1>Ahmad Algifari</h1>
+    <div class="title">Teknik Informatika</div>
+    <nav>
+      <ul>
+        <li><a href="#" data-session="about" class="active">About Me</a></li>
+        <li><a href="#" data-session="experience">Experience</a></li>
+        <li><a href="#" data-session="Dikbangspesdanpelatihan">Dikbangspes dan pelatihan</a></li>
+        <li><a href="#" data-session="education">Education</a></li>
+        <li><a href="#" data-session="family">Family</a></li>
+        <li><a href="#" data-session="Hobby">Hobby</a></li>
+      </ul>
+    </nav>
+    <div class="social-links">
+      <a href="https://www.facebook.com/namaakunmu" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="https://wa.me/085342579645" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/Algifar14" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- About Me -->
+    <div class="session active" id="about">
+      <h2>About Me</h2>
+      <p>
+        Halo Saya Ahmad Algifari, saya bekerja sebagai Anggota Polri khususnya di Bagian <a href="https://korbrimob.polri.go.id/" target="_blank">brimob</a>. Saya memiliki Hobby dalam bidang Programer, Editing dan Designer.
+      </p>
+    </div>
+
+    <!-- Experience -->
+    <div class="session" id="experience">
+      <h2>Experience</h2>
+      <div class="experience-item">
+        <h3 style="display: flex; align-items: center;">
+          Kepolisian Republik Indonesia - BRIMOB
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Lambang_Korps_Brimob.svg" 
+               alt="Logo Brimob" 
+               style="height: 30px; margin-left: 10px;">
+        </h3>
+        <div class="duration">21 Desember 2022 - Sekarang</div>
+        <div class="description">Saya mengembangkan dan memelihara aplikasi web internal untuk mendukung operasional satuan BRIMOB. Tugas saya meliputi desain antarmuka pengguna, pengelolaan basis data, dan penerapan standar keamanan aplikasi. Saya juga memberikan pelatihan teknis kepada anggota dan mendokumentasikan sistem yang telah dibuat.</div>
+      </div>
+    </div>
+
+    <!-- Dikbangspes dan Pelatihan -->
+    <div class="session" id="Dikbangspesdanpelatihan">
+      <h2>Dikbangspes dan pelatihan</h2>
+      <ul>
+        <li>CYBER SOCIAL MEDIA <a href="https://korbrimob.polri.go.id/" target="_blank">Sertifikat</a></li>
+        <li>PELATIHAN INDOOR SKYDIVING TINGKAT PRATAMA <a href="https://korbrimob.polri.go.id/" target="_blank">Sertifikat</a></li>
+        <li>PELATIHAN MAINTENANCE DAN PENGOPERASIAN KENDARAAN TAKTIS ARMOURED PERSONAL CARRIER BARACUDA <a href="https://korbrimob.polri.go.id/" target="_blank">Sertifikat</a></li>
+        <li>INSTRUKTUR BRIMOB <a href="https://korbrimob.polri.go.id/" target="_blank">Sertifikat</a></li>
+        <li>OPEN WATER DIVER SCUBA DIVING <a href="https://korbrimob.polri.go.id/" target="_blank">Sertifikat</a></li>
+      </ul>
+    </div>
+
+    <!-- Education -->
+    <div class="session" id="education">
+      <h2>Education</h2>
+      <div class="education-item">
+        <h3>SD 2 Inpres Tirtakencana</h3>
+        <div class="duration">2010 - 2016</div>
+      </div>
+      <div class="education-item">
+        <h3>SMP NEGERI 1 TOILI</h3>
+        <div class="duration">2016 - 2019</div>
+      </div>
+      <div class="education-item">
+        <h3>SMA NEGERI 1 TOILI</h3>
+        <div class="duration">2019 - 2022</div>
+      </div>
+      <div class="education-item">
+        <h3>DAFTAR POLISI</h3>
+        <div class="duration">2022</div>
+      </div>
+      <div class="education-item">
+        <h3>S1 Teknik Informatika - Universitas Paramadina</h3>
+        <div class="duration">2024 - </div>
+      </div>
+    </div>
+
+    <!-- Family -->
+    <div class="session" id="family">
+      <h2>Family</h2>
+      <p>Keluarga adalah bagian penting dalam hidup saya. Berikut adalah momen berharga yang diabadikan bersama mereka:</p>
+      <div class="family-gallery">
+        <div class="gallery-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Lambang_Korps_Brimob.svg" />
+          <div class="caption">Reuni Keluarga 2023</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://cdn.pixabay.com/photo/2017/03/27/14/56/beach-2179624_960_720.jpg" alt="Liburan keluarga" loading="lazy" />
+          <div class="caption">Liburan di Pantai Bali</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://cdn.pixabay.com/photo/2015/11/07/11/03/family-1030973_960_720.jpg" alt="Hari raya" loading="lazy" />
+          <div class="caption">Hari Raya Idulfitri</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://cdn.pixabay.com/photo/2015/03/26/10/01/birthday-690041_960_720.jpg" alt="Ulang tahun adik" loading="lazy" />
+          <div class="caption">Ulang Tahun Adik</div>
+        </div>
+      </div>
+
+      <!-- Lightbox -->
+      <div class="lightbox" id="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">×</span>
+        <img class="lightbox-image" id="lightbox-image" alt="Lightbox Image" />
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+      </div>
+    </div>
+
+    <!-- Hobby -->
+    <div class="session" id="Hobby">
+      <h2>Hobby</h2>
+      <div class="skills">
+        <ul>
+          <li>Programing</li>
+          <li>Drawing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Handle session switching
+    const links = document.querySelectorAll('.sidebar nav ul li a');
+    const sessions = document.querySelectorAll('.main-content .session');
+
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Remove active class from all links and sessions
+        links.forEach(l => l.classList.remove('active'));
+        sessions.forEach(s => s.classList.remove('active'));
+
+        // Add active class to clicked link and corresponding session
+        this.classList.add('active');
+        const sessionId = this.getAttribute('data-session');
+        document.getElementById(sessionId).classList.add('active');
+      });
+    });
+
+    // Handle lightbox functionality
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const imgSrc = item.querySelector('img').src;
+        const caption = item.querySelector('.caption').textContent;
+        lightboxImage.src = imgSrc;
+        lightboxCaption.textContent = caption;
+        lightbox.classList.add('active');
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+    }
+  </script>
+</body>
+</html>
